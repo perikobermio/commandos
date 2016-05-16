@@ -6,11 +6,6 @@ class render {
 		int SCREEN_W = 1500, SCREEN_H = 800;
 	
 		SDL_Window *screen;
-		
-		struct background {
-			SDL_Texture* img;
-			int x = 0, y = 0, w, h;
-		} camboya;
 	
 	public:
 		SDL_Renderer *ren;
@@ -47,9 +42,13 @@ class render {
         }
        
 	private:
+		struct background {
+			SDL_Texture* img;
+			int x = 0, y = 0, w, h;
+		} camboya;
 		void loadBack() {
 			int w,h;
-			std::string _img = "./img/camboya.jpg";
+			std::string _img = "../img/camboya.jpg";
 			SDL_Surface *img = IMG_Load(_img.c_str());
             SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, img);
             SDL_QueryTexture(texture, NULL, NULL, &w, &h);

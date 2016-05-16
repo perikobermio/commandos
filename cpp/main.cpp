@@ -4,15 +4,18 @@
     #include <SDL2/SDL.h>
     #include <SDL2/SDL_image.h>
     #include "render.h"
+    #include "tank.h"
 
     int main() {
 		bool running = true;
 		int frametime;
 		
         render _render;
+        tank _tank;
         SDL_Event event;
         
         _render.createWindow();
+        _tank.loadTank(_render);
         
         while(running) {
 			frametime = SDL_GetTicks();
@@ -30,7 +33,7 @@
 				}*/
 				if(event.type == SDL_MOUSEBUTTONDOWN) {
 					switch(event.button.button) {
-						case SDL_BUTTON_LEFT: _render.moveBack(_render, event.button.x, event.button.y); break;
+						case SDL_BUTTON_RIGHT: _render.moveBack(_render, event.button.x, event.button.y); break;
 					}
 				}
 				//if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_MAXIMIZED)  maximizekeran mobidek itzeko
@@ -39,6 +42,7 @@
 			
 			SDL_RenderClear(_render.ren);
             _render.renderBack(_render);
+            _tank.renderTank(_render, _tank);
             SDL_RenderPresent(_render.ren);
 			
 			
