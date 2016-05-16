@@ -49,7 +49,7 @@ class render {
 	private:
 		void loadBack() {
 			int w,h;
-			std::string _img = "../img/camboya.jpg";
+			std::string _img = "./img/camboya.jpg";
 			SDL_Surface *img = IMG_Load(_img.c_str());
             SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, img);
             SDL_QueryTexture(texture, NULL, NULL, &w, &h);
