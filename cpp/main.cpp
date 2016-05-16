@@ -33,12 +33,14 @@
 				}*/
 				if(event.type == SDL_MOUSEBUTTONDOWN) {
 					switch(event.button.button) {
-						case SDL_BUTTON_RIGHT: _render.moveBack(_render, event.button.x, event.button.y); break;
+						case SDL_BUTTON_RIGHT: 	_render.moveBack(_render, event.button.x, event.button.y); 	break;
+						case SDL_BUTTON_LEFT: 	_tank.moveTank(_tank, event.button.x, event.button.y); 	break;
 					}
 				}
 				//if(event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_MAXIMIZED)  maximizekeran mobidek itzeko
 				
 			}
+			_tank.moveTank(_tank, event.button.x, event.button.y);
 			
 			SDL_RenderClear(_render.ren);
             _render.renderBack(_render);
