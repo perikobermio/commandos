@@ -14,8 +14,26 @@ class tank {
 		} tanke;
 	
 	public:
-		void moveTank(tank &_tank,  int x, int y) {
-			_tank.tanke.x += _tank.tanke.v;
+		void moveTank(tank &_tank,  int px, int py) {
+			//_tank.tanke.x += _tank.tanke.v;
+			int vx 		= px - _tank.tanke.x;
+			int vy 		= py - _tank.tanke.y;
+			if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
+			double alfa	= atan2(vy,vx) * 180 / M_PI;
+			
+			float v 	= sqrt(vx*vx + vy*vy);
+			float vx2 = v * sin(alfa*( M_PI / 180));
+			float vy2 = v * cos(alfa*( M_PI / 180));
+			
+			_tank.tanke.x = (int)vx2;
+			_tank.tanke.y = (int)vy2;
+			
+			std::cout << vx << "-" << vy << "-" << alfa << std::endl;
+			
+			//tag alfa = x/y
+			/*vFire[i].v = sqrt(vFire[i].vx*vFire[i].vx + vFire[i].vy*vFire[i].vy);
+			vFire[i].vy = vFire[i].v * sin(vFire[i].angle*( M_PI / 180));
+			vFire[i].vx = vFire[i].v * cos(vFire[i].angle*( M_PI / 180));*/
 		}
 	
 	
