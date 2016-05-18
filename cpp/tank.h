@@ -4,7 +4,14 @@
 class tank {
 	private:
 		struct sprItem {
-			SDL_Rect spr_10 = {0,32,134,77};
+			SDL_Rect 	spr_l = {0,32,134,77}, 			spr_lt1 = {135,21,146,88}, 		spr_lt2 = {282,10,147,99}, 
+						spr_lt3 = {430,3,141,106},		spr_lt4 = {571,0,123,109},		spr_lt5 = {695,1,98,108},
+						spr_t = {794,7,72,102},			spr_tr1 = {867,1,97,108},		spr_tr2 = {965,0,123,109},
+						spr_tr3 = {1089,3,140,106},		spr_tr4 = {1230,9,147,100},		spr_tr5 = {1378,15,145,94},
+						spr_r = {1524,13,134,96},		spr_rb1 = {1378,129,145,90},	spr_rb2 = {1230,132,147,99},
+						spr_rb3 = {1089,134,140,104},	spr_rb4 = {965,133,123,106},	spr_rb5 = {867,134,97,106},
+						spr_b = {794,133,72,98},		spr_bl1 = {696,127,97,105},		spr_bl2 = {572,116,123,109},
+						spr_bl3 = {431,110,140,105},	spr_bl4 = {282,110,147,99},		spr_bl5 = {135,110,146,88};
 		} sprTanke;
 		
 		struct item {
@@ -22,7 +29,7 @@ class tank {
             SDL_Texture *texture = SDL_CreateTextureFromSurface(_render.ren, img);
             SDL_FreeSurface(img);
             tanke.img = texture;
-            tanke.spr = sprTanke.spr_10;
+            tanke.spr = sprTanke.spr_l;
 		}
 		
 		void setMoveTank(tank &_tank, int x, int y) {
