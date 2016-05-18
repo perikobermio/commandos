@@ -12,7 +12,7 @@ class tank {
 						spr_rb3 = {1089,134,140,104},	spr_rb4 = {965,133,123,106},	spr_rb5 = {867,134,97,106},
 						spr_b = {794,133,72,98},		spr_bl1 = {696,127,97,105},		spr_bl2 = {572,116,123,109},
 						spr_bl3 = {431,110,140,105},	spr_bl4 = {282,110,147,99},		spr_bl5 = {135,110,146,88};
-		} sprTanke;
+		} sprTanke; //15º-ko inbide kanbijue
 		
 		struct item {
 			SDL_Texture* img;
@@ -29,7 +29,7 @@ class tank {
             SDL_Texture *texture = SDL_CreateTextureFromSurface(_render.ren, img);
             SDL_FreeSurface(img);
             tanke.img = texture;
-            tanke.spr = sprTanke.spr_l;
+            tanke.spr = sprTanke.spr_bl1;
 		}
 		
 		void setMoveTank(tank &_tank, int x, int y) {
@@ -51,7 +51,7 @@ class tank {
 		void renderTank(render _render, tank &_tank) {
 			if(_tank.tanke.moving) _tank.moveTank(_tank);
 			
-			SDL_Rect dst = {_tank.tanke.x,_tank.tanke.y,134,77};
+			SDL_Rect dst = {_tank.tanke.x,_tank.tanke.y,_tank.tanke.spr.w,_tank.tanke.spr.h};
 			SDL_RenderCopy(_render.ren, _tank.tanke.img, &_tank.tanke.spr, &dst);
 		}
 };
