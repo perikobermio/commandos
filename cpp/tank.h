@@ -17,7 +17,7 @@ class tank {
 		struct item {
 			SDL_Texture* img;
 			SDL_Rect spr;
-			int x = 0, y = 0, w, h;
+			int x = 200, y = 200, w, h;
 			bool moving = false;
 			int x2,y2; 
 		} tanke;
@@ -37,16 +37,6 @@ class tank {
 			_tank.tanke.x2 = x;
 			_tank.tanke.y2 = y;
 		}
-		
-		void moveTank(tank &_tank) {
-			int vx 		= _tank.tanke.x2 - _tank.tanke.x;
-			int vy 		= _tank.tanke.y2 - _tank.tanke.y;
-			if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
-			double alfa	= atan2(vy,vx) * 180 / M_PI;
-			
-			_tank.tanke.x += (int)(2*cos(alfa*( M_PI / 180)));
-			_tank.tanke.y += (int)(2*sin(alfa*( M_PI / 180)));
-		}
 	
 		void renderTank(render _render, tank &_tank) {
 			if(_tank.tanke.moving) _tank.moveTank(_tank);
@@ -54,6 +44,53 @@ class tank {
 			SDL_Rect dst = {_tank.tanke.x,_tank.tanke.y,_tank.tanke.spr.w,_tank.tanke.spr.h};
 			SDL_RenderCopy(_render.ren, _tank.tanke.img, &_tank.tanke.spr, &dst);
 		}
+		
+		private:
+			void moveTank(tank &_tank) {
+				int vx 		= _tank.tanke.x2 - _tank.tanke.x;
+				int vy 		= _tank.tanke.y2 - _tank.tanke.y;
+				if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
+				double alfa	= atan2(vy,vx) * 180 / M_PI;
+				
+				_tank.tanke.x += (int)(2*cos(alfa*( M_PI / 180)));
+				_tank.tanke.y += (int)(2*sin(alfa*( M_PI / 180)));
+				
+				_tank.tanke.spr = _tank.setSpr(alfa);
+				
+				std::cout << alfa << std::endl;
+			}
+			
+			SDL_Rect setSpr(double alfa) {
+				if(alfa>=-10 	&& alfa<5) 		return sprTanke.spr_r;
+				if(alfa>=5 		&& alfa<20) 	return sprTanke.spr_rb1;
+				if(alfa>=20 	&& alfa<35) 	return sprTanke.spr_rb2;
+				if(alfa>=35 	&& alfa<50) 	return sprTanke.spr_rb3;
+				if(alfa>=50 	&& alfa<65) 	return sprTanke.spr_rb4;
+				if(alfa>=65 	&& alfa<80) 	return sprTanke.spr_rb5;
+				
+				if(alfa>=80 	&& alfa<95) 	return sprTanke.spr_b;
+				if(alfa>=95 	&& alfa<110) 	return sprTanke.spr_bl1;
+				if(alfa>=110 	&& alfa<125) 	return sprTanke.spr_bl2;
+				if(alfa>=125 	&& alfa<140) 	return sprTanke.spr_bl3;
+				if(alfa>=140 	&& alfa<155) 	return sprTanke.spr_bl4;
+				if(alfa>=155 	&& alfa<170) 	return sprTanke.spr_bl5;
+				
+				if(alfa>=170 	|| alfa< -175) 	return sprTanke.spr_l;
+				if(alfa>= -175 	&& alfa< -160) 	return sprTanke.spr_lt1;
+				if(alfa>= -160 	&& alfa< -145) 	return sprTanke.spr_lt2;
+				if(alfa>= -145 	&& alfa< -130) 	return sprTanke.spr_lt3;
+				if(alfa>= -130 	&& alfa< -115) 	return sprTanke.spr_lt4;
+				if(alfa>= -115 	&& alfa< -100) 	return sprTanke.spr_lt5;
+				
+				if(alfa>= -100 	&& alfa< -85) 	return sprTanke.spr_t;
+				if(alfa>= -85 	&& alfa< -70) 	return sprTanke.spr_tr1;
+				if(alfa>= -70 	&& alfa< -55) 	return sprTanke.spr_tr2;
+				if(alfa>= -55 	&& alfa< -40) 	return sprTanke.spr_tr3;
+				if(alfa>= -40 	&& alfa< -25) 	return sprTanke.spr_tr4;
+				if(alfa>= -25 	&& alfa< -10) 	return sprTanke.spr_tr5;
+				
+				return sprTanke.spr_rb5;
+			}
 };
 
 #endif
