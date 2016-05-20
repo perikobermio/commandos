@@ -43,8 +43,9 @@
 			}
 			
 			SDL_RenderClear(_render.ren);
-            _render.renderBack(_render);
+            _render.renderBack(_render, 0);
             _tank.renderTank(_render, _tank);
+            _render.renderBack(_render, 1);
             SDL_RenderPresent(_render.ren);
 			
 			

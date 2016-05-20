@@ -17,11 +17,10 @@ class tank {
 		struct item {
 			SDL_Texture* img;
 			SDL_Rect spr;
-			int w, h;
 			double x = 200, y = 200, vx, vy, v;
-			float vel = 1;
+			float vel = 1.2;
 			bool moving = false;
-			int x2,y2; 
+			int x1=200,y1=200,x2,y2; 
 		} tanke;
 	
 	public:
@@ -56,6 +55,13 @@ class tank {
 				_tank.tanke.x += _tank.tanke.vx;
 				_tank.tanke.y += _tank.tanke.vy;
 				
+				double vx 		= _tank.tanke.x1 - _tank.tanke.x;
+				double vy 		= _tank.tanke.y1 - _tank.tanke.y;
+				if((vx*vx+vy*vy) > _tank.tanke.v) {
+					_tank.tanke.x1 = _tank.tanke.x;
+					_tank.tanke.y1 = _tank.tanke.y;
+					_tank.tanke.moving = false;
+				}
 			}
 			
 			SDL_Rect dst = {(int)(_tank.tanke.x),(int)(_tank.tanke.y),_tank.tanke.spr.w,_tank.tanke.spr.h};

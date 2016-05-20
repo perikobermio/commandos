@@ -17,14 +17,14 @@ class render {
             loadBack();
 		}
 		
-		void renderBack(render _render) {
-			SDL_Rect spr = {_render.camboya.x,_render.camboya.y,_render.SCREEN_W,_render.SCREEN_H};
+		void renderBack(render _render, int i) {
+			SDL_Rect spr = {_render.camboya[i].x,_render.camboya[i].y,_render.SCREEN_W,_render.SCREEN_H};
 			SDL_Rect dst = {0,0,_render.SCREEN_W,_render.SCREEN_H};
-			SDL_RenderCopy(_render.ren, _render.camboya.img, &spr, &dst);
+			SDL_RenderCopy(_render.ren, _render.camboya[i].img, &spr, &dst);
 		}
 		void moveBack(render &_render, int x, int y) {
-			_render.camboya.x = x;
-			_render.camboya.y = y;
+			_render.camboya[0].x = x;
+			_render.camboya[0].y = y;
 		}
 		
 		
@@ -45,7 +45,7 @@ class render {
 		struct background {
 			SDL_Texture* img;
 			int x = 0, y = 0, w, h;
-		} camboya;
+		} camboya[2];
 		void loadBack() {
 			int w,h;
 			std::string _img = "../img/camboya.jpg";
@@ -53,9 +53,18 @@ class render {
             SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, img);
             SDL_QueryTexture(texture, NULL, NULL, &w, &h);
             SDL_FreeSurface(img);
-            camboya.img = texture;
-            camboya.w = w;
-            camboya.h = h;
+            camboya[0].img = texture;
+            camboya[0].w = w;
+            camboya[0].h = h;
+            
+            std::string _imgm = "../img/mask.png";
+			SDL_Surface *imgm = IMG_Load(_imgm.c_str());
+            SDL_Texture *texturem = SDL_CreateTextureFromSurface(ren, imgm);
+            SDL_QueryTexture(texturem, NULL, NULL, &w, &h);
+            SDL_FreeSurface(imgm);
+            camboya[1].img = texturem;
+            camboya[1].w = w;
+            camboya[1].h = h;
 		}
 };
 
