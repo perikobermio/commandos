@@ -17,7 +17,8 @@ class tank {
 		struct item {
 			SDL_Texture* img;
 			SDL_Rect spr;
-			int x = 200, y = 200, w, h, vx, vy;
+			int w, h;
+			double x = 200, y = 200, vx, vy;
 			bool moving = false;
 			int x2,y2; 
 		} tanke;
@@ -37,40 +38,28 @@ class tank {
 			_tank.tanke.x2 = x;
 			_tank.tanke.y2 = y;
 			
-			int vx 		= _tank.tanke.x2 - _tank.tanke.x;
-			int vy 		= _tank.tanke.y2 - _tank.tanke.y;
+			double vx 		= _tank.tanke.x2 - _tank.tanke.x;
+			double vy 		= _tank.tanke.y2 - _tank.tanke.y;
 			if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
 			double alfa	= atan2(vy,vx) * 180 / M_PI;
 			
-			_tank.tanke.vx = (int)(2*cos(alfa*( M_PI / 180)));
-			_tank.tanke.vy = (int)(2*sin(alfa*( M_PI / 180)));
+			_tank.tanke.vx = 2*cos(alfa*( M_PI / 180));
+			_tank.tanke.vy = 2*sin(alfa*( M_PI / 180));
 			
 			_tank.tanke.spr = _tank.setSpr(alfa);
 		}
 	
 		void renderTank(render _render, tank &_tank) {
-			//if(_tank.tanke.moving) _tank.moveTank(_tank);
 			if(_tank.tanke.moving) {
 				_tank.tanke.x += _tank.tanke.vx;
 				_tank.tanke.y += _tank.tanke.vy;
 			}
 			
-			SDL_Rect dst = {_tank.tanke.x,_tank.tanke.y,_tank.tanke.spr.w,_tank.tanke.spr.h};
+			SDL_Rect dst = {(int)(_tank.tanke.x),(int)(_tank.tanke.y),_tank.tanke.spr.w,_tank.tanke.spr.h};
 			SDL_RenderCopy(_render.ren, _tank.tanke.img, &_tank.tanke.spr, &dst);
 		}
 		
 		private:
-			void moveTank(tank &_tank) {
-				int vx 		= _tank.tanke.x2 - _tank.tanke.x;
-				int vy 		= _tank.tanke.y2 - _tank.tanke.y;
-				if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
-				double alfa	= atan2(vy,vx) * 180 / M_PI;
-				
-				_tank.tanke.x += (int)(2*cos(alfa*( M_PI / 180)));
-				_tank.tanke.y += (int)(2*sin(alfa*( M_PI / 180)));
-				
-				_tank.tanke.spr = _tank.setSpr(alfa);
-			}
 			
 			SDL_Rect setSpr(double alfa) {
 				if(alfa>=-10 	&& alfa<5) 		return sprTanke.spr_r;
