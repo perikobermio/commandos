@@ -18,7 +18,8 @@ class tank {
 			SDL_Texture* img;
 			SDL_Rect spr;
 			int w, h;
-			double x = 200, y = 200, vx, vy;
+			double x = 200, y = 200, vx, vy, v;
+			float vel = 1;
 			bool moving = false;
 			int x2,y2; 
 		} tanke;
@@ -41,10 +42,11 @@ class tank {
 			double vx 		= _tank.tanke.x2 - _tank.tanke.x;
 			double vy 		= _tank.tanke.y2 - _tank.tanke.y;
 			if(vx==0) vx+=1; if(vy==0) vy+=1; //float core dumperra arreglateko
+			_tank.tanke.v 	= (vx*vx+vy*vy);
 			double alfa	= atan2(vy,vx) * 180 / M_PI;
 			
-			_tank.tanke.vx = 2*cos(alfa*( M_PI / 180));
-			_tank.tanke.vy = 2*sin(alfa*( M_PI / 180));
+			_tank.tanke.vx = _tank.tanke.vel * cos(alfa*( M_PI / 180));
+			_tank.tanke.vy = _tank.tanke.vel * sin(alfa*( M_PI / 180));
 			
 			_tank.tanke.spr = _tank.setSpr(alfa);
 		}
@@ -53,6 +55,7 @@ class tank {
 			if(_tank.tanke.moving) {
 				_tank.tanke.x += _tank.tanke.vx;
 				_tank.tanke.y += _tank.tanke.vy;
+				
 			}
 			
 			SDL_Rect dst = {(int)(_tank.tanke.x),(int)(_tank.tanke.y),_tank.tanke.spr.w,_tank.tanke.spr.h};
